@@ -10,8 +10,8 @@ script:
 notifications:
   email:
     recipients:
-     -mm8348@nyu.edu
-     -sl6219@nyu.edu
+     - mm8348@nyu.edu
+     - sl6219@nyu.edu
     on_success: always
     on_failure: never
   
