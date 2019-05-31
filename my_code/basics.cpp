@@ -43,8 +43,8 @@ void fill_vector(vector<int>& v, int n) {
  * Print all elements in a vector. Use a ranged for!
  * */
 void print_vector(const vector<int>& v) {
-    for (int i : v) {
-        cout<<i<<endl;
+    for (int j : v) {
+        cout<<j<<endl;
     }
 }
 
