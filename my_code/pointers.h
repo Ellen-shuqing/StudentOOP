@@ -5,7 +5,6 @@
 //  Created by Shuqing Li on 6/4/19.
 //  Copyright © 2019 Shuqing Li. All rights reserved.
 //
-
 #ifndef POINTERS_H
 #define POINTERS_H
 
@@ -33,7 +32,7 @@ struct Student {
     Student(std::string nm) : name(nm), ta(nullptr) {}
 };
 
-void assignTA(Student& s, Student& ta);
-void printTAs(std::vector<Student> students);
+void assignTA(Student* s, Student* ta);
+void printTAs(std::vector<Student*>& students);
 
 #endif
