@@ -14,11 +14,19 @@
 
 using namespace std;
 
-void read_recording(string filename, Weather& w){
-    ifstream rfile(filename);
-    if(!rfile){
-        cout<<"could not read input file: "<<filename<<endl;
-        exit(1);
+string get_input_file() {
+    string filename;
+    
+    cout<<"Input the name of the new reading: "<<endl;
+    cin>>filename;
+    return filename;
+}
+
+void read_recording(Weather& w){
+    ifstream rfile(get_input_file());
+    while (!rfile){
+        cout<<"could not read input file: "<<endl;
+        rfile.open(get_input_file());
     }
     int m,d,y;
     double temp,hum,ws;
@@ -38,7 +46,7 @@ int main() {
     cout<<"Input the name of the new readings file;\n";
     cin>>filename;
     
-    read_recording(filename,irkutsk);
+    read_recording(irkutsk);
     
     cout << irkutsk << endl;
     
