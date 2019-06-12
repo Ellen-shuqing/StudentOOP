@@ -22,7 +22,8 @@ string get_input_file() {
     return filename;
 }
 
-void read_recording(Weather& w){
+
+void weather_recording(Weather& w){
     ifstream rfile(get_input_file());
     while (!rfile){
         cout<<"could not read input file: "<<endl;
@@ -46,7 +47,7 @@ int main() {
     cout<<"Input the name of the new readings file;\n";
     cin>>filename;
     
-    read_recording(irkutsk);
+    weather_recording(irkutsk);
     
     cout << irkutsk << endl;
     

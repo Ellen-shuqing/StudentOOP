@@ -27,6 +27,10 @@ class WReading {
     friend std::ostream& operator<<(std::ostream& os, const WReading& wr);
 public:
     WReading(Date dt,double temp,double hum,double ws);
+    double get_tempF() const;
+    double get_tempC() const;
+    double get_heat_index() const;
+    double get_wind_chill() const;
 private:
     Date date;
     double temperature;
@@ -47,6 +51,7 @@ public:
     int get_rating() const;
     void set_rating(int new_rating);
     void add_reading(WReading wr);
+   
 private:
     std::string station_nm;
     GPS my_loc;
