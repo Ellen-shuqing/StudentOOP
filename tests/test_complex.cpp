@@ -84,7 +84,7 @@ int main() {
         cout << c5 << endl;
         assert(c5.get_real() == 14.2);
         Complex scalar_prod = c5 * 2;
-        assert(scalar_prod.get_real() == 28.4);
-        assert(scalar_prod.get_imag() == 0.0);
+        assert(scalar_prod.get_real() == 28.40);
+        assert(scalar_prod.get_imag() == 0.00);
     
 }
