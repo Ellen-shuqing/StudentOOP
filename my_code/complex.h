@@ -13,7 +13,7 @@ class Complex {
     
     /*
      * The equality operator should be a friend since it is binary
-     * and symmetrical.
+     * and symmetrical
      * */
     
 
