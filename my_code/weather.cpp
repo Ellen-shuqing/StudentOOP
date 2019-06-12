@@ -65,3 +65,59 @@ double WReading::get_tempC() const {return temperature;}
 double WReading::get_heat_index() const {return humidity;}
 
 double WReading::get_wind_chill() const {return windspeed;}
+
+Image::Image(int w, int h, std::string flnm)
+: width(w), height(h)
+{
+    filename = flnm;
+    image_buf = new char[image_sz()];
+}
+
+// copy constructor:
+Image::Image(const Image& img2) {
+    width=img2.width;
+    height=img2.height;
+    filename=img2.filename;
+    image_buf=new char[image_sz()];
+    for (int i=0;i<image_sz();++i) {
+        image_buf[i]=img2.image_buf[i];
+    }
+}
+
+Image::~Image() {
+    if(image_buf!=nullptr) {
+        delete[] image_buf;
+    }
+}
+
+Image& Image::operator=(const Image& img2) {
+    if (&img2!=this) {
+        if (image_buf!=nullptr) {
+            delete[] image_buf;
+            copy_fields(img2);
+        }
+    }
+    return *this;
+}
+
+int Image::image_sz() {
+    return width * height;
+}
+
+
+void Image::copy_fields(const Image& img2) {
+    width=img2.width;
+    height=img2.height;
+    filename=img2.filename;
+    image_buf=new char[image_sz()];
+    for (int i=0;i<image_sz();++i) {
+        image_buf[i]=img2.image_buf[i];
+    }
+}
+/*
+ * Setting `display() = 0` here makes this an abstract
+ * class that can't be implemented.
+ * */
+string Image::display(std::string s) {
+    return "Displaying image " + s;
+}
