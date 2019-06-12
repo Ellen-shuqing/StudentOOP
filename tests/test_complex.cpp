@@ -86,4 +86,5 @@ int main() {
         Complex scalar_prod = c5 * 2;
         assert(scalar_prod.get_real() == 28.4);
         assert(scalar_prod.get_imag() == 0.0);
+    
 }

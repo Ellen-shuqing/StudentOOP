@@ -98,7 +98,9 @@ Complex operator-(const Complex& c1, const Complex& c2){
 }
 
 
+
 Complex Complex::operator*(const int i) {
     Complex product(real * i, imag * i);
     return product;
 }
+
