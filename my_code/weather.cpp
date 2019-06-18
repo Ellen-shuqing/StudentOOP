@@ -94,8 +94,9 @@ Image& Image::operator=(const Image& img2) {
     if (&img2!=this) {
         if (image_buf!=nullptr) {
             delete[] image_buf;
-            copy_fields(img2);
+            
         }
+            copy_fields(img2);
     }
     return *this;
 }
