@@ -5,53 +5,101 @@
 //  Created by Shuqing Li on 6/18/19.
 //  Copyright © 2019 Shuqing Li. All rights reserved.
 //
-
 #include <iostream>
 #include "vector.h"
 
 using namespace std;
 
-void print_vector(const MyVec& v) {
-    for (int i=0;i<v.size();i++) {
-        cout<<v[i]<<" ";
+
+
+MyVec::MyVec() : sz(0) {
+    capacity = DEF_CAPACITY;
+    data = new int[DEF_CAPACITY];
+}
+
+
+MyVec::MyVec(int sz, int val) : sz(sz) {
+    capacity=sz;
+    data=new int[sz];
+    for (int i=0;i<sz;++i) {
+        data[i]=val;
     }
-    cout<<endl;
 }
 
-
-MyVec::MyVec() {
-    sz = 0;
-    capacity=DEF_CAPACITY;
-    data=new int[capacity];
-}
 
 MyVec::MyVec(const MyVec& v2) {
-    sz=v2.sz;
-    capacity=v2.capacity;
-    data=new int[capacity];
-    for (int i=0;i<sz;i++) {
-        data[i]=v2.data[i];
-    }
+    copy(v2);
 }
 
 MyVec::~MyVec() {
-    delete[] data;
+    delete [] data;
 }
 
 MyVec& MyVec::operator=(const MyVec& v2) {
-    if (&v2!=this) {
-        delete[] data;
-        sz=v2.sz;
-        capacity=v2.capacity;
-        data=new int[v2.capacity];
-        for (int i=0;i<sz;i++) {
-            data[i]=v2.data[i];
-        
-        }
+    if (this != &v2) {
+        delete [] data;
+        copy(v2);
     }
     return *this;
 }
 
+
+MyVec::Iterator MyVec::begin() const {
+    return MyVec::Iterator(data);
+}
+
+MyVec::Iterator MyVec::end() const {
+    return MyVec::Iterator(data+sz);
+}
+
+MyVec::Iterator& MyVec::Iterator::operator++() {
+    ++iptr;
+    return *this;
+}
+
+
+/*
+ * Puts an element at the back of a vector.
+ * */
+void MyVec::push_back(int val) {
+    sz++;
+    if (sz > capacity) {
+        cout << "Increasing capacity\n";
+        int* old_data = data;
+        data = new int[capacity * CAPACITY_MULT];
+        for (int i = 0; i < sz; i++) {
+            data[i] = old_data[i];
+        }
+        capacity *= CAPACITY_MULT;
+        delete [] old_data;
+    }
+    data[sz - 1] = val;
+}
+
+/*
+ * this [] is for reading items from the MyVec:
+ * It returns the i-th element.
+ * */
+int MyVec::operator[](int i) const {
+    return data[i];
+}
+
+/*
+ * this [] allows write access to items in the MyVec:
+ * It returns a reference to the i-th element.
+ * */
+int& MyVec::operator[](int i) {
+    return data[i];
+}
+
+void MyVec::copy(const MyVec& v2) {
+    sz = v2.sz;
+    capacity = v2.capacity;
+    data = new int[capacity];
+    for (int i = 0; i < sz; i++) {
+        data[i] = v2.data[i];
+    }
+}
 
 /*
  * == is true when every element of the vectors are the same in
@@ -69,34 +117,7 @@ bool operator==(MyVec& v1, MyVec& v2) {
     return true;
 }
 
-/*
- * Puts an element at the back of a vector.
- * */
-void MyVec::push_back(int val) {
-    if (sz==capacity) {
-        capacity*=2;
-        int* temp= new int[capacity];
-        for (int i=0;i<sz;i++) {
-            temp[i]=data[i];
-        }
-        delete[] data;
-        data=temp;
-    }
-    data[sz++]=val;
-}
-
-/*
- * this [] is for reading items from the MyVec:
- * It returns the i-th element.
- * */
-int MyVec::operator[](int i) const {
-    return data[i];
-}
-
-/*
- * this [] allows write access to items in the MyVec:
- * It returns a reference to the i-th element.
- * */
-int& MyVec::operator[](int i) {
-    return data[i];
+void print_vector(const MyVec& v) {
+    for (int i : v) cout << i << " ";
+    cout << endl;
 }

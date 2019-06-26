@@ -5,12 +5,35 @@
 //  Created by Shuqing Li on 6/18/19.
 //  Copyright © 2019 Shuqing Li. All rights reserved.
 //
-
 const int DEF_CAPACITY = 10;
+const int CAPACITY_MULT = 2;
 
 class MyVec {
 public:
+    class Iterator {
+        /*
+         * This class supports ranged for loops.
+         * It includes:
+         * Iterator(int*)
+         * operator++
+         * operator*
+         * operator!=
+         * */
+        friend bool operator!=(Iterator& rhs, Iterator& lhs) {
+            return rhs.iptr!=lhs.iptr;
+        }
+        
+    public:
+        Iterator(int* ip) : iptr(ip) {}
+        Iterator& operator++();
+        int operator*() { return *iptr; }
+        
+    private:
+        int* iptr;
+    };
+    
     MyVec();
+    MyVec(int sz, int val=0);
     
     // copy control:
     MyVec(const MyVec& v2);
@@ -21,7 +44,11 @@ public:
     int size() const { return sz; }
     int operator[](int i) const;
     int& operator[](int i);
+    Iterator begin() const;
+    Iterator end() const;
+    
 private:
+    void copy(const MyVec& v2);
     int* data;
     int sz;
     int capacity;
